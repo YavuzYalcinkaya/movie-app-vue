@@ -11,9 +11,9 @@
       />
     </router-link>
     <div class="cursor-pointer">
-      <h3 class="text-white text-start mt-2 hover:text-gray-300">
+      <p class="text-lg text-white text-start mt-2 hover:text-gray-300">
         {{ movie.title }}
-      </h3>
+      </p>
       <div class="flex items-center text-[#9CA3AF]">
         <i class="fas fa-star text-orange-500"></i>
         <span class="ml-2">{{ movie.vote_average }} </span>

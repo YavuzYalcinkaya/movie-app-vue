@@ -1,12 +1,26 @@
 <script>
+import Navbar from "@/components/header/Navbar.vue";
+import Searchbar from "@/components/header/Searchbar.vue";
+import Logo from "@/components/header/Logo.vue";
  export default {
   name: "App",
+  components: {
+    Logo,
+    Navbar,
+    Searchbar
+  }
  };
 </script>
 
 <template>
-  <div id="app">
-   
+  <div id="app" class="container mx-auto">
+    <div
+      class="flex justify-between items-center mt-3 h-24 border-b border-white"
+    >
+      <Logo />
+      <Navbar />
+      <Searchbar />
+    </div>
     <router-view />
   </div>
 </template>
