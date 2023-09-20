@@ -1,10 +1,13 @@
 <template>
-  <div
-    class="container mx-auto flex justify-between items-center mt-3 h-24 border-b border-white"
-  >
-    <Logo />
-    <Navbar />
-    <Searchbar />
+  <div class="container mx-auto">
+    <div
+      class="flex justify-between items-center mt-3 h-24 border-b border-white"
+    >
+      <Logo />
+      <Navbar />
+      <Searchbar />
+    </div>
+    <PopularMovies />
   </div>
 </template>
 
@@ -12,6 +15,7 @@
 import Navbar from "@/components/header/Navbar.vue";
 import Searchbar from "@/components/header/Searchbar.vue";
 import Logo from "@/components/header/Logo.vue";
+import PopularMovies from "../components/PopularMovies.vue";
 
 export default {
   name: "Home",
@@ -19,6 +23,7 @@ export default {
     Logo,
     Navbar,
     Searchbar,
+    PopularMovies,
   },
 };
 </script>
