@@ -34,9 +34,9 @@
         </div>
         <div class="mt-5">
           <a
-            :href="youtubeVideo"
+            @click.prevent="openTrailerModal"
             target="_blank"
-            class="rounded bg-orange-500 px-5 py-3 inline-flex gap-2 items-center text-white"
+            class="cursor-pointer rounded bg-orange-500 px-5 py-3 inline-flex gap-2 items-center text-white"
           >
             <i class="fas fa-play"></i>
             <span>Play Trailer</span>
@@ -45,17 +45,27 @@
       </div>
     </div>
     <Cast :casts="movie.credits.cast" />
-    <Images :images="movie.images.backdrops" />
+    <Images
+      :images="movie.images.backdrops"
+      v-on:on-image-click="showImageModal"
+    />
+    <MediaModal
+      v-model="modalOpen"
+      :mediaUrl="mediaUrl"
+      :isVideo="this.isVideo"
+    />
   </div>
 </template>
 
 <script>
 import Cast from "@/components/Cast.vue";
 import Images from "@/components/Images.vue";
+import MediaModal from "@/components/modals/MediaModal.vue";
 export default {
   components: {
     Cast,
     Images,
+    MediaModal,
   },
   data() {
     return {
@@ -68,6 +78,8 @@ export default {
         },
         genres: [],
       },
+      modalOpen: false,
+      isVideo: false,
     };
   },
   mounted() {
@@ -88,10 +100,14 @@ export default {
       this.movie = response.data;
       console.log(response.data);
     },
-  },
-  computed: {
-    posterPath() {
-      return "https://image.tmdb.org/t/p/w500/" + this.movie.poster_path;
+    openTrailerModal() {
+      this.mediaUrl = this.youtubeVideo();
+      this.isVideo = true;
+      this.modalOpen = true;
+    },
+    openImageModal() {
+      this.isVideo = false;
+      this.modalOpen = true;
     },
     youtubeVideo() {
       const results = this.movie?.videos?.results;
@@ -104,6 +120,16 @@ export default {
       }
       // Trailer tipinde bir sonuç bulunamazsa varsayılan bir değer döndür..
       return "https://www.youtube.com/embed/DEFAULT_VIDEO_KEY"; // Varsayılan video
+    },
+    showImageModal(imageFullPath) {
+      this.mediaUrl = imageFullPath;
+      this.isVideo = false;
+      this.modalOpen = true;
+    },
+  },
+  computed: {
+    posterPath() {
+      return "https://image.tmdb.org/t/p/w500/" + this.movie.poster_path;
     },
   },
 };
