@@ -28,6 +28,7 @@ export default {
     try {
       const response = await this.$http.get("/movie/popular");
       this.movies = response.data.results;
+      // console.log(response.data.results);
     } catch (error) {
       console.log(error);
     }
