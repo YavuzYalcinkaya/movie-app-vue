@@ -2,7 +2,11 @@
   <div class="container mx-auto border-b border-white px-4 py-4">
     <h2 class="text-4xl font-semibold mb-5">Images</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
-      <div class="mr-2 my-3" :key="index" v-for="(image, index) in images">
+      <div
+        class="mr-2 my-3 cursor-pointer"
+        :key="index"
+        v-for="(image, index) in images"
+      >
         <img
           @click="openModal(image)"
           :src="movieImage(image)"

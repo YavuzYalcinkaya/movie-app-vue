@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="">
     <h2
-      class="pt-4 font-semibold uppercase text-lg tracking-wider text-orange-500"
+      class="pt-4 text-center lg:text-start font-semibold uppercase text-lg tracking-wider text-orange-500"
     >
       popular fılms
     </h2>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
       <MovieItem :key="movie.id" v-for="movie in movies" :movie="movie" />
     </div>
   </div>

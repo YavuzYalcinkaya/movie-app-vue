@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col">
     <div class="container mx-auto flex mt-20 border-b border-white">
-      <img :src="posterPath" alt="" class="w-64" />
+      <img :src="posterPath" alt="" width="300" />
       <div class="ml-24">
         <h1 class="text-4xl font-semibold">{{ this.movie.title }}</h1>
         <span>
@@ -44,9 +44,9 @@
         </div>
       </div>
     </div>
-    <Cast :casts="movie.credits.cast" />
+    <Cast :casts="movie.credits.cast.slice(0, 12)" />
     <Images
-      :images="movie.images.backdrops"
+      :images="movie.images.backdrops.slice(0, 12)"
       v-on:on-image-click="showImageModal"
     />
     <MediaModal
@@ -80,10 +80,16 @@ export default {
       },
       modalOpen: false,
       isVideo: false,
+      mediaUrl: "",
     };
   },
-  mounted() {
-    this.fetchMovie(this.$route.params.id);
+  watch: {
+    "$route.params.id": {
+      handler() {
+        this.fetchMovie(this.$route.params.id);
+      },
+      immediate: true,
+    },
   },
 
   filters: {

@@ -1,20 +1,20 @@
 <template>
-  <div class="flex mt-5 relative">
+  <div class="flex relative">
     <input
       ref="searchBox"
       type="text"
-      class="rounded-full bg-gray-700 px-8 py-2 w-48 mr-3 focus:outline-none text-white"
+      class="rounded-full bg-gray-700 px-4 py-2 w-48 mr-3 focus:outline-none text-white"
       placeholder="Film Ara..."
       @input="debounceSearch"
       v-model="searchTerm"
       @focus="handleFocus"
     />
-    <div class="absolute top-2 left-2 text-gray-300">
-      <i class="fas fa-search fill-current w-4"></i>
+    <div class="absolute top-3 left-3 text-gray-300">
+      <i class="fas fa-search fill-current w-5 h-5"></i>
     </div>
 
     <div
-      class="absolute bg-gray-800 w-60 rounded shadow-md z-10 overflow-y-auto mt-12"
+      class="absolute bg-gray-800 w-72 rounded shadow-md z-10 overflow-y-auto right-3 mt-12"
     >
       <ul v-if="showSearchResult" class="mt-2 max-h-[400px]">
         <router-link
@@ -33,8 +33,8 @@
           <span class="ml-2 text-white">{{ movie.title }}</span>
         </router-link>
       </ul>
-      <ul class="px-3 z-10" v-else>
-        <li v-if="noResultFound">No Result Found for "{{ searchTerm }}"</li>
+      <ul class="px-3 z-10" v-if="searchResult.length == 0 && showSearchResult">
+        <li>No Result Found for "{{ searchTerm }}"</li>
       </ul>
     </div>
     <img
@@ -52,7 +52,6 @@ export default {
       searchResult: [],
       searchTerm: "",
       showSearchResult: false,
-      noResultFound: false,
       debounce: null, // debounce işlemi için timer değişkeni
     };
   },
@@ -66,18 +65,15 @@ export default {
         if (event.target.value.length > 2) {
           this.fetchSearch(event.target.value);
         } else {
-          this.searchResult = [];
-          this.noResultFound = false;
           this.showSearchResult = false; // Boş metinle arama yapıldığında sonuçları gizle
         }
-      }, 600);
+      }, 300);
     },
     async fetchSearch(term) {
       try {
         const response = await this.$http.get("/search/movie?query=" + term);
         this.searchResult = response?.data?.results || [];
         this.showSearchResult = this.searchResult.length > 0; // Sonuçlar geldiyse sonuçları göster
-        this.noResultFound = this.searchResult.length === 0;
       } catch (error) {
         console.log(error);
       }
