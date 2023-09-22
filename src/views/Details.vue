@@ -37,14 +37,14 @@
 
           <div class="flex flex-col mt-2 lg:mr-5">
             <div :key="index" v-for="(crew, index) in movie.credits.crew">
-              <div v-if="index < 2" class="mt-2">
+              <div v-if="index < 2" class="mt-2 text-sm lg:text-lg">
                 <div class="text-gray-500">{{ crew.job }}</div>
-                <div class="text-sm lg:text-lg">{{ crew.name }}</div>
+                <div>{{ crew.name }}</div>
               </div>
             </div>
           </div>
         </div>
-        <div class="mt-5">
+        <div class="mt-5 flex gap-3">
           <a
             @click.prevent="openTrailerModal"
             target="_blank"
@@ -52,6 +52,25 @@
           >
             <i class="fas fa-play"></i>
             <span>Play Trailer</span>
+          </a>
+          <a
+            @click="toggleFavorites"
+            target="_blank"
+            class="cursor-pointer rounded bg-orange-500 px-5 py-3 inline-flex gap-2 items-center text-white"
+          >
+            <i
+              :class="[
+                'far',
+                $store.getters.isFavorite(movie.id)
+                  ? 'fas fa-heart'
+                  : 'far fa-heart',
+              ]"
+            ></i>
+            <span>{{
+              $store.getters.isFavorite(movie.id)
+                ? "Added to Favorites"
+                : "Add to Favorites"
+            }}</span>
           </a>
         </div>
       </div>
@@ -81,6 +100,7 @@ export default {
   },
   data() {
     return {
+      isFavorited: false,
       movie: {
         credits: {
           cast: [],
@@ -119,15 +139,18 @@ export default {
       this.movie = response.data;
       console.log(response.data);
     },
+
     openTrailerModal() {
       this.mediaUrl = this.youtubeVideo();
       this.isVideo = true;
       this.modalOpen = true;
     },
+
     openImageModal() {
       this.isVideo = false;
       this.modalOpen = true;
     },
+
     youtubeVideo() {
       const results = this.movie?.videos?.results;
       const trailerResult = results?.find(
@@ -140,10 +163,31 @@ export default {
       // Trailer tipinde bir sonuç bulunamazsa varsayılan bir değer döndür..
       return "https://www.youtube.com/embed/DEFAULT_VIDEO_KEY"; // Varsayılan video
     },
+
     showImageModal(imageFullPath) {
       this.mediaUrl = imageFullPath;
       this.isVideo = false;
       this.modalOpen = true;
+    },
+
+    toggleFavorites() {
+      const { id, title, poster_path, release_date, vote_average } = this.movie;
+      const favoriteMovie = {
+        id,
+        title,
+        poster_path,
+        release_date,
+        vote_average,
+      };
+
+      // Favoriye eklenip eklenmediğini kontrol edin ve durumu tersine çevirin
+      if (this.isFavorited) {
+        this.$store.dispatch("removeFromFavorites", id);
+      } else {
+        this.$store.dispatch("addToFavorites", favoriteMovie);
+      }
+
+      this.isFavorited = !this.isFavorited; // Durumu tersine çevirin
     },
   },
   computed: {
