@@ -1,5 +1,5 @@
 <template>
-  <div class="relative mx-auto w-full max-w-xl mt-2 shadow-md">
+  <div class="relative mx-auto w-full max-w-xl mt-4 shadow-md">
     <div class="absolute top-2 left-0 flex items-center h-full ml-3">
       <i class="fas fa-search w-8 h-8 text-white fill-current"></i>
     </div>

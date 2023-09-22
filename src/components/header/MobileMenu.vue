@@ -1,19 +1,27 @@
 <template>
   <div
     class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-end"
-    @click="closeMobileMenu"
   >
-    <div class="bg-gray-800 w-64 h-full overflow-y-auto">
-      <div class="p-4">
-        <div class="text-white text-2xl mb-4">Menu</div>
-        <ul class="space-y-2">
-          <!-- Örnek bir menü öğesi -->
+    <div class="bg-gray-800 overflow-y-auto w-64 h-full">
+      <div class="flex justify-end mt-3 mr-1">
+        <i
+          class="fa fa-window-close fa-lg"
+          @click="closeMobileMenu"
+          aria-hidden="true"
+        ></i>
+      </div>
+      <div class="p-4 flex justify-between mt-12">
+        <ul class="uppercase gap-4 space-y-2 font-semibold text-xl">
           <li>
             <router-link to="/" class="text-white hover:underline"
               >Movies</router-link
             >
           </li>
-          <!-- Diğer menü öğeleri ekleyebilirsiniz -->
+          <li>
+            <router-link to="/favourites" class="text-white hover:underline"
+              >Favourites</router-link
+            >
+          </li>
         </ul>
       </div>
     </div>

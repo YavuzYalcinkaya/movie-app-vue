@@ -2,7 +2,7 @@
   <div class="pt-4">
     <router-link :to="`/movie/${movie.id}`">
       <img
-        class="hover:opacity-75 transition ease-in-out duration-150"
+        class="hover:opacity-75 transition ease-in-out duration-150 rounded-xl"
         width="{250}"
         height="{200}"
         unoptimized
