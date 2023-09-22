@@ -1,47 +1,42 @@
 <template>
-  <div class="flex relative">
+  <div class="relative mx-auto w-full max-w-xl mt-2 shadow-md">
+    <div class="absolute top-2 left-0 flex items-center h-full ml-3">
+      <i class="fas fa-search w-8 h-8 text-white fill-current"></i>
+    </div>
     <input
       ref="searchBox"
       type="text"
-      class="rounded-full bg-gray-700 px-4 py-2 w-48 mr-3 focus:outline-none text-white"
-      placeholder="Film Ara..."
+      class="w-full py-3 lg:py-4 px-4 bg-gray-700 text-white rounded-md pl-10 focus:outline-none focus:shadow-outline"
+      placeholder="Search Movie..."
       @input="debounceSearch"
       v-model="searchTerm"
       @focus="handleFocus"
     />
-    <div class="absolute top-3 left-3 text-gray-300">
-      <i class="fas fa-search fill-current w-5 h-5"></i>
-    </div>
 
     <div
-      class="absolute bg-gray-800 w-72 rounded shadow-md z-10 overflow-y-auto right-3 mt-12"
+      class="absolute bg-gray-800 w-full max-w-xl rounded shadow-md z-10 overflow-y-auto mt-4"
     >
-      <ul v-if="showSearchResult" class="mt-2 max-h-[400px]">
+      <ul v-if="showSearchResult" class="mt-2 w-full max-h-[400px]">
         <router-link
           :to="'/movie/' + movie.id"
           tag="li"
           :key="movie.id"
           v-for="movie in searchResult"
           @click.native="showSearchResult = false"
-          class="flex items-center p-2 hover:bg-gray-700 cursor-pointer border-b border-white"
+          class="flex items-center p-2 hover:bg-gray-700 cursor-pointer border-b border-gray-700"
         >
           <img
             :src="posterPath(movie.poster_path)"
             alt=""
-            class="w-10 h-14 rounded-md object-cover"
+            class="w-20 h-20 rounded-md object-cover"
           />
-          <span class="ml-2 text-white">{{ movie.title }}</span>
+          <span class="ml-2 text-lg text-white">{{ movie.title }}</span>
         </router-link>
       </ul>
       <ul class="px-3 z-10" v-if="searchResult.length == 0 && showSearchResult">
         <li>No Result Found for "{{ searchTerm }}"</li>
       </ul>
     </div>
-    <img
-      src="@/assets/profile.jpeg"
-      alt="Profile"
-      class="h-10 w-10 rounded-full cursor-pointer"
-    />
   </div>
 </template>
 

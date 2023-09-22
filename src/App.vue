@@ -10,10 +10,9 @@
         <i class="fas fa-bars text-white text-2xl"></i>
       </button>
 
-      <!-- Navbar ve Searchbar için div -->
+      <!-- Navbar için div -->
       <div class="hidden lg:flex">
         <Navbar />
-        <Searchbar />
       </div>
     </div>
 
@@ -27,7 +26,6 @@
 
 <script>
 import Navbar from "@/components/header/Navbar.vue";
-import Searchbar from "@/components/header/Searchbar.vue";
 import Logo from "@/components/header/Logo.vue";
 import MobileMenu from "@/components/header/MobileMenu.vue"; // MobileMenu bileşeni eklendi
 
@@ -36,7 +34,6 @@ export default {
   components: {
     Logo,
     Navbar,
-    Searchbar,
     MobileMenu, // MobileMenu bileşeni eklendi
   },
   data() {
