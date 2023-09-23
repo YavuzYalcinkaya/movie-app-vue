@@ -9,7 +9,7 @@
       <router-link
         to="/favorites"
         class="px-2 py-1 rounded hover:opacity-75 hover:scale-110 duration-200"
-        >Favourites</router-link
+        >Favorites</router-link
       >
     </div>
   </nav>

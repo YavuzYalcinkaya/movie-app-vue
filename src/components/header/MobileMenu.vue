@@ -18,8 +18,8 @@
             >
           </li>
           <li>
-            <router-link to="/favourites" class="text-white hover:underline"
-              >Favourites</router-link
+            <router-link to="/favorites" class="text-white hover:underline"
+              >Favorites</router-link
             >
           </li>
         </ul>

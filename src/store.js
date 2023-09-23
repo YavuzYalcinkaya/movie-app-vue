@@ -15,7 +15,7 @@ function initializeFavoritesFromLocalStorage() {
 
 export default new Vuex.Store({
   state: {
-    favorites: initializeFavoritesFromLocalStorage(), // Favorileri localStorage'dan alın
+    favorites: initializeFavoritesFromLocalStorage(), // Favorileri localStorage'dan al
   },
   mutations: {
     addToFavorites(state, movie) {
@@ -38,7 +38,7 @@ export default new Vuex.Store({
   getters: {
     favorites: (state) => state.favorites,
     isFavorite: (state) => (movieId) => {
-      // favorites'ın bir dizi olup olmadığını kontrol edin
+      // favorites'ın bir dizi olup olmadığını kontrol et
       if (Array.isArray(state.favorites)) {
         return state.favorites.some((movie) => movie.id === movieId);
       }

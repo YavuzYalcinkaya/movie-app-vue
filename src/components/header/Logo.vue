@@ -1,12 +1,6 @@
 <template>
   <router-link to="/">
-    <img
-      src="@/assets/logo.png"
-      alt="Logo"
-      width="80"
-      height="80"
-      class="mr-2 cursor-pointer"
-    />
+    <img src="@/assets/logo.png" alt="Logo" class="cursor-pointer" />
   </router-link>
 </template>
 

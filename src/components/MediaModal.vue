@@ -15,14 +15,14 @@
             &times;
           </button>
         </div>
-        <div class="modal-body px-8 py-8">
+        <div class="px-8 py-8">
           <div
-            class="responsive-container overflow-hidden relative"
+            class="overflow-hidden relative"
             :style="isVideo ? 'padding-top: 56.25%' : {}"
           >
             <img :src="mediaUrl" v-if="!isVideo" alt="" />
             <iframe
-              class="responsive-iframe absolute top-0 left-0 w-full h-full border-none"
+              class="absolute top-0 left-0 w-full h-full border-none"
               allow="autoplay; encrypted-media"
               allowfullscreen
               v-if="isVideo"

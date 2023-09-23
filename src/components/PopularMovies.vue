@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import MovieItem from "@/components/items/MovieItem.vue";
+import MovieItem from "@/components/MovieItem.vue";
 
 export default {
   components: {
@@ -29,12 +29,9 @@ export default {
     try {
       const response = await this.$http.get("/movie/popular");
       this.movies = response.data.results;
-      console.log(response.data.results);
     } catch (error) {
       console.log(error);
     }
   },
 };
 </script>
-
-<style></style>

@@ -12,7 +12,7 @@
         />
       </div>
       <div class="lg:ml-24 text-center lg:text-start">
-        <h1 class="text-2xl lg:text-4xl font-semibold mt-2">
+        <h1 class="text-4xl font-semibold mt-2">
           {{ this.movie.title }}
         </h1>
         <div class="mt-4">
@@ -44,31 +44,31 @@
             </div>
           </div>
         </div>
-        <div class="mt-5 flex gap-3">
+        <div
+          class="mt-5 flex flex-col md:flex-row gap-3 justify-center lg:justify-start"
+        >
           <a
             @click.prevent="openTrailerModal"
             target="_blank"
-            class="cursor-pointer rounded bg-orange-500 px-5 py-3 inline-flex gap-2 items-center text-white"
+            class="cursor-pointer rounded bg-orange-500 px-5 py-3 flex gap-2 items-center justify-center text-white"
           >
             <i class="fas fa-play"></i>
-            <span>Play Trailer</span>
+            <span class="">Play Trailer</span>
           </a>
           <a
             @click="toggleFavorites"
             target="_blank"
-            class="cursor-pointer rounded bg-orange-500 px-5 py-3 inline-flex gap-2 items-center text-white"
+            class="cursor-pointer rounded bg-orange-500 px-5 py-3 flex gap-2 items-center justify-center text-white"
           >
             <i
               :class="[
                 'far',
-                $store.getters.isFavorite(movie.id)
-                  ? 'fas fa-heart'
-                  : 'far fa-heart',
+                isFavorite(movie.id) ? 'fas fa-heart' : 'far fa-heart',
               ]"
             ></i>
             <span>{{
-              $store.getters.isFavorite(movie.id)
-                ? "Added to Favorites"
+              isFavorite(movie.id)
+                ? "Remove from Favorites"
                 : "Add to Favorites"
             }}</span>
           </a>
@@ -91,7 +91,13 @@
 <script>
 import Cast from "@/components/Cast.vue";
 import Images from "@/components/Images.vue";
-import MediaModal from "@/components/modals/MediaModal.vue";
+import MediaModal from "@/components/MediaModal.vue";
+import Vue from "vue";
+import VueToast from "vue-toast-notification";
+import "vue-toast-notification/dist/theme-bootstrap.css";
+
+Vue.use(VueToast);
+
 export default {
   components: {
     Cast,
@@ -100,7 +106,6 @@ export default {
   },
   data() {
     return {
-      isFavorited: false,
       movie: {
         credits: {
           cast: [],
@@ -127,17 +132,18 @@ export default {
 
   filters: {
     roundToOneDecimal(value) {
-      return parseFloat(value).toFixed(1); // sayıyı ondalık olarak yuvarladım.
+      return parseFloat(value).toFixed(1); // sayıyı ondalık olarak yuvarla.
     },
   },
 
   methods: {
     async fetchMovie(movieId) {
       const response = await this.$http.get(
-        "/movie/" + movieId + "?append_to_response=credits,videos,images"
+        "/movie/" +
+          movieId +
+          "?append_to_response=credits,videos,images&credits"
       );
       this.movie = response.data;
-      console.log(response.data);
     },
 
     openTrailerModal() {
@@ -160,7 +166,7 @@ export default {
       if (trailerResult) {
         return "https://www.youtube.com/embed/" + trailerResult.key;
       }
-      // Trailer tipinde bir sonuç bulunamazsa varsayılan bir değer döndür..
+      // Trailer tipinde bir sonuç bulunamazsa varsayılan bir değer döndür.
       return "https://www.youtube.com/embed/DEFAULT_VIDEO_KEY"; // Varsayılan video
     },
 
@@ -168,6 +174,11 @@ export default {
       this.mediaUrl = imageFullPath;
       this.isVideo = false;
       this.modalOpen = true;
+    },
+
+    isFavorite(movieId) {
+      // Bu film favorilerde mi kontrol et
+      return this.favorites.some((movie) => movie.id === movieId);
     },
 
     toggleFavorites() {
@@ -180,19 +191,23 @@ export default {
         vote_average,
       };
 
-      // Favoriye eklenip eklenmediğini kontrol edin ve durumu tersine çevirin
-      if (this.isFavorited) {
+      if (this.isFavorite(id)) {
+        // Eğer film favorilerdeyse kaldır
         this.$store.dispatch("removeFromFavorites", id);
+        Vue.$toast.error(`${this.movie.title} removed favorite films.`);
       } else {
+        // Değilse ekle
         this.$store.dispatch("addToFavorites", favoriteMovie);
+        Vue.$toast.success(`${this.movie.title} added favorite films.`);
       }
-
-      this.isFavorited = !this.isFavorited; // Durumu tersine çevirin
     },
   },
   computed: {
     posterPath() {
       return "https://image.tmdb.org/t/p/w500/" + this.movie.poster_path;
+    },
+    favorites() {
+      return this.$store.state.favorites; // Favori filmleri al
     },
   },
 };

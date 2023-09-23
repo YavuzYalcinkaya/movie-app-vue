@@ -33,7 +33,10 @@
           <span class="ml-2 text-lg text-white">{{ movie.title }}</span>
         </router-link>
       </ul>
-      <ul class="px-3 z-10" v-if="searchResult.length == 0 && showSearchResult">
+      <ul
+        class="px-3 py-2 z-10"
+        v-if="searchResult.length == 0 && showSearchResult"
+      >
         <li>No Result Found for "{{ searchTerm }}"</li>
       </ul>
     </div>
@@ -62,7 +65,7 @@ export default {
         } else {
           this.showSearchResult = false; // Boş metinle arama yapıldığında sonuçları gizle
         }
-      }, 300);
+      }, 500);
     },
     async fetchSearch(term) {
       try {
