@@ -12,7 +12,6 @@ import PopularMovies from "@/components/PopularMovies.vue";
 import Searchbar from "@/components/Searchbar.vue";
 
 export default {
-  name: "Home",
   components: {
     PopularMovies,
     Searchbar,

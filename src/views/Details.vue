@@ -23,8 +23,12 @@
         <div
           class="lg:mt-3 w-full flex justify-center items-center lg:justify-start"
         >
-          <ul class="text-gray-500 flex gap-3">
-            <li v-for="genre in movie.genres" :key="genre.id">
+          <ul class="text-white flex gap-3 cursor-pointer">
+            <li
+              v-for="genre in movie.genres"
+              :key="genre.id"
+              class="rounded-2xl border bordero-solid border-gray-700 px-4 py-2 hover:opacity-75"
+            >
               {{ genre.name }}
             </li>
           </ul>
