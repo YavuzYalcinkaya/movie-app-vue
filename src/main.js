@@ -8,7 +8,6 @@ import api from "./services/api";
 Vue.prototype.$http = api;
 
 new Vue({
-  mode: "history",
   router,
   store,
   render: (h) => h(App),
