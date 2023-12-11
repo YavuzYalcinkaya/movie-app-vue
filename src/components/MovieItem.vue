@@ -16,7 +16,7 @@
       </p>
       <div class="flex items-center text-[#9CA3AF]">
         <i class="fas fa-star text-orange-500"></i>
-        <span class="ml-2">{{ movie.vote_average }} </span>
+        <span class="ml-2">{{ movie.vote_average.toFixed(1) }} </span>
         <span class="ml-1">|</span>
         <span class="ml-2 text-sm">{{ movie.release_date }}</span>
       </div>

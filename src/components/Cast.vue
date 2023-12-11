@@ -7,7 +7,11 @@
         :key="index"
         v-for="(cast, index) in casts"
       >
-        <img :src="castProfileImage(cast)" alt="" class="rounded-xl" />
+        <img 
+          :src="castProfileImage(cast)" 
+          alt="Cast-Image" 
+          class="rounded-xl hover:opacity-75 transition ease-in-out duration-200 cursor-pointer"  
+        />
         <span class="mt-2 text-white text-center text-xl">{{ cast.name }}</span>
       </div>
     </div>

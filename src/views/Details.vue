@@ -54,7 +54,8 @@
           <a
             @click.prevent="openTrailerModal"
             target="_blank"
-            class="cursor-pointer rounded bg-orange-500 px-5 py-3 flex gap-2 items-center justify-center text-white"
+            class="cursor-pointer rounded bg-orange-500 px-5 py-3 flex gap-2 
+            items-center justify-center text-white hover:opacity-75 transition ease-in-out duration-150"
           >
             <i class="fas fa-play"></i>
             <span class="">Play Trailer</span>
@@ -62,7 +63,8 @@
           <a
             @click="toggleFavorites"
             target="_blank"
-            class="cursor-pointer rounded bg-orange-500 px-5 py-3 flex gap-2 items-center justify-center text-white"
+            class="cursor-pointer rounded bg-orange-500 px-5 py-3 
+            flex gap-2 items-center justify-center text-white hover:opacity-75 transition ease-in-out duration-150"
           >
             <i
               :class="[
